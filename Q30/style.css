@@ -1,0 +1,20 @@
+:root {
+  box-sizing: border-box;
+  font-size: 2.2em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+p:nth-child(2n) {
+  color: blueviolet;
+  display: none;
+}
+
+p:nth-child(2n).visible {
+  display: block;
+}

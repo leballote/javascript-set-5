@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q18</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="info"></div>
+  <table id="candidates-table" class="candidates-table">
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>Last Name</td>
+        <td>Phone</td>
+        <td><a href="" id="add-candidate">#Add</a></td>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  
+  
+  <template id="candidate-template">
+    <tr class="candidate-tr">
+      <td class="candidate-name"></td>
+      <td class="candidate-last-name"></td>
+      <td class="candidate-phone"></td>
+      <td class="candidate-edit-delete">
+        <span><a href="" class="edit-btn">edit</a></span> /
+        <span><a href="" class="delete-btn">delete</a></span>
+      </td>
+    </tr>
+  </template>
+
+  <!-- <template id="new-candidate-template">
+    <tr class="new-candidate-tr">
+      <td class="candidate-name" contenteditable="true"></td>
+      <td class="candidate-last-name" contenteditable="true"></td>
+      <td class="candidate-phone" contenteditable="true"></td>
+      <td class="candidate-accept-cancel">
+        <span><a href="" class="accept-btn">accept</a></span> /
+        <span><a href="" class="cancel-btn">cancel</a></span>
+      </td>
+    </tr>
+  </template> -->
+
+  <form action="POST" id="candidate-form">
+    <label for="candidate-name-input">Name: </label>
+    <input type="text" id="candidate-name-input" placeholder="name">
+
+    <label for="candidate-last-name-input">Last Name: </label>
+    <input type="text" id="candidate-last-name-input" placeholder="last name...">
+
+    <label for="candidate-phone-input">Phone: </label>
+    <input type="text" id="candidate-phone-input" placeholder="phone...">
+  </form>
+  <script src="script.js"></script>
+</body>
+</html>

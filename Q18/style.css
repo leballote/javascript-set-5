@@ -1,0 +1,43 @@
+:root {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2em;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+#candidate-form {
+  /* display: none; */
+  visibility: hidden;
+  border: solid gray 2px;
+  padding: 0.4em 1em;
+}
+
+#candidate-form > input {
+  display: block;
+  width: 100%;
+}
+
+#candidate-form.visible {
+  visibility: visible;
+  /* display: block; */
+}
+
+table {
+  border: gray 2px solid;
+}
+
+
+/* tbody > tr > td {
+
+} */

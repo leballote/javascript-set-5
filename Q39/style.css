@@ -1,0 +1,24 @@
+:root {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.8em;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+input {
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+#feedback.invalid {
+  color: rgb(65, 65, 65);
+}
+
+#feedback {
+  background-color: rgb(244, 150, 150);
+}

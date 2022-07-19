@@ -1,0 +1,14 @@
+:root {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+tr:not(:first-child) td {
+  background-color: gray;  
+}
