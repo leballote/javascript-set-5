@@ -1,28 +1,15 @@
-// swaps array elements in place
-function swap(arr, i, j) {
-  let temp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = temp;
-}
-
 //in-place
 function moveZerosInPlace(arr) {
-  let j = arr.length - 1;
-  for (let i = 0; i < arr.length - 1; i++) {
-    if (i >= j) {
-      return;
+  let zerosCount = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] == 0) {
+      zerosCount++;
+    } else {
+      arr[i - zerosCount] = arr[i];
     }
-    if (arr[i] === 0) {
-      while (arr[j] === 0 && j >= 1) {
-        j--;
-      }
-      if (j === 0) {
-        return;
-      } else {
-        swap(arr, i, j);
-        j--;
-      }
-    }
+  }
+  for (let i = arr.length - zerosCount; i < arr.length; i++) {
+    arr[i] = 0;
   }
 }
 
@@ -30,8 +17,7 @@ function moveZeros(arr, copyFn = (el) => el) {
   //copy fn defines how every element will be copied in the map
 
   //alterlatively we have copied the array since the beginning, but then the map would have created another shallow copy, so I think this way is slightly more eficcient
-  let zeros = [];
-  let out = arr.flatMap((el, i) => {
+  let out = arr.flatMap((el) => {
     if (el === 0) {
       //desappear the zeros when flatting
       return [];

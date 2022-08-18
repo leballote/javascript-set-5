@@ -1,13 +1,13 @@
-function passedTwo(...args) {
+function wasTwoPassed(...args) {
   if (args.includes(2)) {
-    console.log("yey, you passed 2 within your arguments :)");
+    return true;
   } else {
-    console.log("you didn't include 2 in your arguments :(");
+    return false;
   }
 }
 
-passedTwo(3, 5, 2, 5);
-passedTwo(3, 5, 10, 5);
-passedTwo();
-passedTwo(2);
-passedTwo([2, 2, 2]);
+wasTwoPassed(3, 5, 2, 5);
+wasTwoPassed(3, 5, 10, 5);
+wasTwoPassed();
+wasTwoPassed(2);
+wasTwoPassed([2, 2, 2]);

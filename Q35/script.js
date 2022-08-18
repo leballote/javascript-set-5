@@ -16,11 +16,11 @@ function sortByAge(ev) {
     return [parseInt(row.querySelector("td:nth-child(2)").textContent), row];
   });
 
-  let sortedRows = rowsAges.sort(([age1, row1], [age2, row2]) => {
+  let sortedRows = rowsAges.sort(([age1], [age2]) => {
     return (-1) ** -reverse * (age1 - age2);
   });
   reverse = !reverse;
-  temp = sortedRows.map(([age, row]) => row);
+  temp = sortedRows.map(([, row]) => row);
 
-  tbody.replaceChildren(thead, ...sortedRows.map(([age, row]) => row));
+  tbody.replaceChildren(thead, ...sortedRows.map(([, row]) => row));
 }

@@ -8,8 +8,8 @@ button.addEventListener("click", (ev) => {
 function translate(el, px) {
   el.style.transform = `translateX(${px}px)`;
 }
-
-function moveLeft(el, px) {
+//oops
+function moveRight(el, px) {
   let curr = 0;
   const interval = setInterval(() => {
     if (curr < px) {

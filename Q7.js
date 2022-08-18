@@ -1,11 +1,3 @@
-function max(iterable) {
-  max = -Infinity;
-  for (const el of iterable) {
-    max = el > max ? el : max;
-  }
-  return max;
-}
-
-const x = max([1, 8, 3, 4]);
-
-console.log(x);
+const arr = [1, 8, 3, 4];
+const maxEl = Math.max(...arr);
+console.log(maxEl);

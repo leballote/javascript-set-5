@@ -11,7 +11,11 @@ function propDiff(a, b, eqFn = (x, y) => x === y) {
   }
   const keys = Object.keys({ ...a, ...b });
   for (const key of keys) {
-    if (!eqFn(a[key], b[key])) {
+    if (!Object.prototype.hasOwnProperty.call(a, key)) {
+      out.push(key);
+    } else if (!Object.prototype.hasOwnProperty.call(b, key)) {
+      out.push(key);
+    } else if (!eqFn(a[key], b[key])) {
       out.push(key);
     }
   }
@@ -33,3 +37,10 @@ const y = {
 };
 
 console.log(propDiff(x, y));
+console.log(propDiff({ a: undefined }, {}));
+
+const x2 = Object.create(null);
+x2["p1"] = 3;
+const y2 = { p1: 4 };
+
+console.log(propDiff(x2, y2));

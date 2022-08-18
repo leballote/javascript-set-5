@@ -72,33 +72,38 @@ function getPrev(char) {
 }
 
 function isValid(text) {
-  if (text.length != 4) {
-    return true;
-  }
-  let consecutive = true;
-  let consecutiveR = true;
+  let consecutiveLeftRright = 1;
+  let consecutiveRightLeft = 1;
 
   for (let i = 0; i < text.length - 1; i++) {
     const char = text[i];
     const consChar = getNext(char)?.toLowerCase();
     const nextChar = text[i + 1].toLowerCase();
-    if (consChar !== nextChar) {
-      consecutive = false;
-      break;
+    if (consChar == nextChar) {
+      consecutiveLeftRright++;
+    } else {
+      consecutiveLeftRright = 1;
+    }
+    if (consecutiveLeftRright >= 4) {
+      return false;
     }
   }
 
   for (let i = 0; i < text.length - 1; i++) {
     const char = text[i];
-    const consChar = text[i + 1].toLowerCase();
-    const prevChar = getPrev(char)?.toLowerCase();
-    if (consChar !== prevChar) {
-      consecutiveR = false;
-      break;
+    const prevChar = text[i + 1].toLowerCase();
+    const consChar = getPrev(char)?.toLowerCase();
+    if (consChar == prevChar) {
+      consecutiveRightLeft++;
+    } else {
+      consecutiveLeftRright = 1;
+    }
+    if (consecutiveRightLeft >= 4) {
+      return false;
     }
   }
 
-  return !consecutive && !consecutiveR;
+  return true;
 }
 
 function printTest(text) {
@@ -114,12 +119,13 @@ printTest("holacomo");
 printTest("hola como");
 printTest("");
 printTest("iopa");
-printTest("asdfg");
 console.groupEnd();
 
 console.group("False");
 printTest("asdf");
 printTest("qwer");
 printTest("rewq");
+printTest("asdfg");
+printTest("gfdsa");
 
 console.groupEnd();

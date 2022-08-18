@@ -1,8 +1,8 @@
 const show = document.getElementById("id1");
-const div = document.getElementsByTagName("div")[0];
+//maybe this? still doesn't seem too robust to me
+const div = show.previousElementSibling;
 
 show.addEventListener("click", (ev) => {
-  console.log("hey");
   ev.preventDefault();
   div.classList.add("visible");
 });

@@ -6,6 +6,18 @@ class Person {
   getFullName() {
     return `${this.name} ${this.lastName}`;
   }
+  generateQueryString() {
+    let q = "?";
+    for (const key in this) {
+      if (this.hasOwnProperty(key)) {
+        q += `${encodeURIComponent(key)}=${encodeURIComponent(this[key])}&`;
+      }
+    }
+    return q.replace(/&$/, "");
+  }
+  async request() {
+    return fetch(`https://myApi/person?${this.generateQueryString()}`);
+  }
 }
 
 class Medic extends Person {
@@ -15,10 +27,8 @@ class Medic extends Person {
   }
 }
 
-async function requestPerson(person) {
-  return fetch(
-    `https://myApi/person?name=${encodeURIComponent(
-      person.name
-    )}&lastName=${encodeURIComponent(person.lastName)}`
-  );
-}
+const George = new Person("George", "Johnson");
+const Anna = new Medic("Anna", "Smith", "Odonthology");
+
+console.log(George.generateQueryString());
+console.log(Anna.generateQueryString());

@@ -1,6 +1,29 @@
-//here doesn't specify if it should be deep, shallow or something else for the duplicated elements. I'll assume they should be the same (by reference).
-Array.prototype.duplicate = function () {
-  return this.concat(this);
-};
+//I am assuming that we can't use Array.prototype.flat
 
-console.log([1, 2, 3, 4].duplicate());
+function flat(array) {
+  // console.log("array", array);
+  let ans = [];
+  if (!Array.isArray(array)) {
+    return array;
+  }
+  for (const el of array) {
+    if (Array.isArray(el)) {
+      ans.push(...flat(el));
+    } else {
+      ans.push(flat(el));
+    }
+  }
+  return ans;
+}
+
+console.log(
+  flat([
+    1,
+    [2, [3, 4, [5, 6]]],
+    7,
+    [8, 9, [10, 11, [12, 13, [14, 15]]]],
+    16,
+    17,
+  ])
+);
+console.log([]);

@@ -2,8 +2,6 @@ import candidates from "./candidates.js";
 
 window.candidates = candidates;
 
-let temp;
-
 //templates
 const candidateTemplate = document.getElementById("candidate-template");
 const candidateEditableTemplate = document.getElementById(
@@ -17,10 +15,15 @@ const candidatesTableBody = document.querySelector(
 );
 const candidateForm = document.getElementById("candidate-form");
 
-//buttons or
+//buttons or links
 const addCandidate = document.getElementById("add-candidate");
 const acceptBtn = document.getElementById("accept-btn");
 const cancelBtn = document.getElementById("cancel-btn");
+
+//state
+const appState = {
+  rowsBeingEdited: {},
+};
 
 //event listeners
 
@@ -48,6 +51,7 @@ acceptBtn.addEventListener("click", (ev) => {
       });
   });
   candidateForm.classList.remove("visible");
+  candidateForm.reset();
 });
 
 cancelBtn.addEventListener("click", (ev) => {
@@ -75,9 +79,6 @@ candidatesTable.addEventListener("click", (ev) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        id: id,
-      }),
     });
     deleteCandidate(candidateRow);
   }
@@ -96,7 +97,6 @@ candidatesTable.addEventListener("click", (ev) => {
             .textContent,
           phone:
             candidateEditableRow.querySelector(".candidate-phone").textContent,
-          id: getNumberId(candidateEditableRow.id),
         }),
       }
     )
@@ -108,12 +108,12 @@ candidatesTable.addEventListener("click", (ev) => {
   }
   if (cancelEdit) {
     const id = getNumberId(candidateEditableRow.id);
-    myFetch(`http://myApi.com/v1/candidate/${id}`)
-      .then((res) => JSON.parse(res))
-      .then((parsed) => {
-        const { data } = parsed;
-        returnCandidate(candidateEditableRow, data);
-      });
+    console.log(id, appState.rowsBeingEdited[getIdFromNumber(id)]);
+    returnCandidate(
+      candidateEditableRow,
+      appState.rowsBeingEdited[getIdFromNumber(id)]
+    );
+    delete appState.rowsBeingEdited[getIdFromNumber(id)];
   }
 });
 
@@ -160,13 +160,31 @@ function createCandidate(candidateData) {
   return candidateRow;
 }
 
+function getDataFromElement(cand) {
+  if (cand == "string") cand = document.getElementById(cand);
+  const out = {
+    id: getNumberId(cand.id),
+    name: cand.querySelector(".candidate-name").textContent,
+    lastName: cand.querySelector(".candidate-last-name").textContent,
+    phone: cand.querySelector(".candidate-phone").textContent,
+  };
+  return out;
+}
+
 function getNumberId(str) {
   const { groups } = str.match(/(candidate)-(?<id>\d+)/);
   return groups.id;
 }
 
+function getIdFromNumber(id) {
+  return `candidate-${id}`;
+}
+
 function setEditable(cand) {
   if (typeof cand == "string") cand = document.getElementById(cand);
+  const id = cand.id;
+  appState.rowsBeingEdited[id] = getDataFromElement(cand);
+  console.log(appState);
   const editableCand = createEditable(cand);
   cand.parentElement.replaceChild(editableCand, cand);
 }
@@ -194,6 +212,9 @@ function deleteCandidate(cand) {
 }
 
 function returnCandidate(candidateEditableRow, candidateData) {
+  if (candidateEditableRow === "string") {
+    candidateEditableRow = document.getElementById(candidateEditableRow);
+  }
   candidateEditableRow.parentElement.replaceChild(
     createCandidate(candidateData),
     candidateEditableRow
@@ -243,7 +264,12 @@ async function myFetch(urlString, config = {}) {
     }
   }
 
-  return Promise.resolve(
-    JSON.stringify({ data: resolvedData, statusCode: resolvedStatus })
-  );
+  return new Promise((resolve) => {
+    setTimeout(
+      resolve(
+        JSON.stringify({ data: resolvedData, statusCode: resolvedStatus })
+      ),
+      300
+    );
+  });
 }

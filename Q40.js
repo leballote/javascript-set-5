@@ -63,7 +63,6 @@ function findZeroTernaries(nums) {
 }
 
 let test = [3, 2, 1, 0, -3, 2, 2, -2];
-test = [1, 2, -2, -1];
 
-let y;
-console.log((y = findZeroTernaries(test)));
+let y = findZeroTernaries(test);
+console.log(y);

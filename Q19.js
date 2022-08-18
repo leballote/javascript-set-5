@@ -1,7 +1,6 @@
 const toScape = ["\\, *"];
 
 function compare(pattern, string) {
-  let j = 0;
   const n = pattern.length;
   for (let i = 0; i < n; i++) {
     const patternChar = pattern[i];

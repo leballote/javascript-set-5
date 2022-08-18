@@ -3,8 +3,10 @@ document.body.addEventListener("click", (ev) => {
   const toggler = ev.target.closest("p:nth-child(2n + 1)");
   if (toggler) {
     const toToggle = toggler.nextElementSibling;
-    for (const togglable of togglables) {
-      togglable.classList.remove("visible");
+    if (!toToggle.classList.contains("visible")) {
+      for (const togglable of togglables) {
+        togglable.classList.remove("visible");
+      }
     }
     toToggle.classList.toggle("visible");
   }
