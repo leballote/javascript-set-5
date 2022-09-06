@@ -2,7 +2,7 @@ const square = document.getElementById("square");
 const button = document.getElementById("move-btn");
 
 button.addEventListener("click", (ev) => {
-  moveLeft(square, 500);
+  moveRight(square, 500);
 });
 
 function translate(el, px) {

@@ -15,13 +15,13 @@ function mod(a, M) {
   }
 }
 
-//function to avoid overflow for a*X
 function mulAXmodM(a, X, M) {
-  let q = Math.floor(M / a);
-  let r = mod(M, a);
-  let first = mod(a * mod(X, q), M);
-  let second = mod(Math.floor(X / q) * r, M);
-  const ans = mod(first - second, M);
+  let ans = 0;
+  while (X) {
+    if (X & 1) ans = (ans + a) % M;
+    a = (a + a) % M;
+    X = X >> 1;
+  }
   return ans;
 }
 

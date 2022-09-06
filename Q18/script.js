@@ -223,13 +223,13 @@ function returnCandidate(candidateEditableRow, candidateData) {
 
 //simulates my server
 async function myFetch(urlString, config = {}) {
-  let { method = "GET", body = "{}", headers } = config;
+  let { method = "GET", body = "{}" } = config;
   body = JSON.parse(body);
 
   let resolvedData;
   let resolvedStatus;
   const url = new URL(urlString);
-  const [, version, resource, id] = url.pathname.split("/");
+  const [, , resource, id] = url.pathname.split("/");
 
   if (method == "GET" || method == "get") {
     if (resource == "candidates") {

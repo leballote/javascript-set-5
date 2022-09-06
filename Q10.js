@@ -15,8 +15,11 @@ class Person {
     }
     return q.replace(/&$/, "");
   }
+  getURL() {
+    return `https://myApi/person${this.generateQueryString()}`;
+  }
   async request() {
-    return fetch(`https://myApi/person?${this.generateQueryString()}`);
+    return fetch(this.getURL());
   }
 }
 
@@ -30,5 +33,12 @@ class Medic extends Person {
 const George = new Person("George", "Johnson");
 const Anna = new Medic("Anna", "Smith", "Odonthology");
 
+console.group("George");
 console.log(George.generateQueryString());
+console.log(George.getURL());
+console.groupEnd();
+
+console.group("Anna");
 console.log(Anna.generateQueryString());
+console.log(Anna.getURL());
+console.groupEnd();

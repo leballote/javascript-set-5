@@ -6,7 +6,8 @@ const {
 } = require("./oldGenerator");
 const { writeGeneratedData } = require("./utils");
 
-const [lo, hi] = [500, 1000];
+const [lo, hi] = [0, 10];
+
 const gen = getNonRepeatingRandomGenerator(lo, hi);
 const x = [];
 const y = [];

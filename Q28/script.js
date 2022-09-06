@@ -5,18 +5,10 @@ var async = {
       promises.push(fetch(url));
     }
     Promise.allSettled(promises).then(async (results) => {
-      const context = {};
+      const context = [];
       for (let i = 0; i < results.length; i++) {
         const res = results[i];
-        if (res.status === "fulfilled") {
-          //I could also check if status == 200 instead of the following condition, but a try catch block seemed more general
-          try {
-            context[i] = await res.value.json();
-          } catch (e) {
-            console.error(e);
-          }
-        }
-        //I am not sure what to do with the rejected promises, but without more context, it seems reasonable to me not to include anything, but I could have added the reason of the promise.
+        context[i] = res?.value ?? res.reason;
       }
       callback.call(context);
     });
@@ -30,7 +22,7 @@ function theCallback() {
 async.getAll(
   [
     "https://pokeapi.co/api/v2/pokemon/ditto",
-    "https://pokeapi.co/api/v2/pokemon/notExistentPokemonThatMakesThisRequestFail",
+    "https://nonExistentApiThatWouldMakeThisRequestFail.co/api/v1/something",
     "https://pokeapi.co/api/v2/pokemon/pikachu",
   ],
   theCallback
