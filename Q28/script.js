@@ -4,11 +4,10 @@ var async = {
     for (const url of urlArray) {
       promises.push(fetch(url));
     }
-    Promise.allSettled(promises).then(async (results) => {
-      const context = [];
+    Promise.allSettled(promises).then((results) => {
+      const context = {};
       for (let i = 0; i < results.length; i++) {
-        const res = results[i];
-        context[i] = res?.value ?? res.reason;
+        context[i + 1] = results[i];
       }
       callback.call(context);
     });
@@ -24,6 +23,7 @@ async.getAll(
     "https://pokeapi.co/api/v2/pokemon/ditto",
     "https://nonExistentApiThatWouldMakeThisRequestFail.co/api/v1/something",
     "https://pokeapi.co/api/v2/pokemon/pikachu",
+    "https://pokeapi.co/api/v2/pokemon/nonExistentPokemon",
   ],
   theCallback
 );

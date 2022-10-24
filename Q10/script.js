@@ -1,4 +1,6 @@
 class Person {
+  static host = "https://myapi.domain";
+  static base = "person";
   constructor(name, lastName) {
     this.name = name;
     this.lastName = lastName;
@@ -6,20 +8,14 @@ class Person {
   getFullName() {
     return `${this.name} ${this.lastName}`;
   }
-  generateQueryString() {
-    let q = "?";
-    for (const key in this) {
-      if (this.hasOwnProperty(key)) {
-        q += `${encodeURIComponent(key)}=${encodeURIComponent(this[key])}&`;
-      }
-    }
-    return q.replace(/&$/, "");
-  }
-  getURL() {
-    return `https://myApi/person${this.generateQueryString()}`;
+  getURLString() {
+    const url = new URL(Person.base, Person.host);
+    url.searchParams.set("name", this.name);
+    url.searchParams.set("lastName", this.lastName);
+    return url.toString();
   }
   async request() {
-    return fetch(this.getURL());
+    return fetch(this.getURLString());
   }
 }
 
@@ -34,11 +30,9 @@ const George = new Person("George", "Johnson");
 const Anna = new Medic("Anna", "Smith", "Odonthology");
 
 console.group("George");
-console.log(George.generateQueryString());
-console.log(George.getURL());
+console.log(George.getURLString());
 console.groupEnd();
 
 console.group("Anna");
-console.log(Anna.generateQueryString());
-console.log(Anna.getURL());
+console.log(Anna.getURLString());
 console.groupEnd();
